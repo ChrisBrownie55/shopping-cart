@@ -39,7 +39,7 @@ class Store {
 
   addToCart(itemID) {
     const item = this.items.find(item => item.id === itemID);
-    if (item) {
+    if (item && item.quantity) {
       let cartItem = this.cart.find(cartItem => cartItem.id === itemID);
       if (!cartItem) {
         cartItem = {
