@@ -34,19 +34,21 @@ function drawCheckout() {
     return;
   }
 
-  document.getElementById('cart-items').innerHTML = cartItems.map(
-    item => `
-    <li class='cart-item'>
-    <span class='cart-item-name'>
-    ${item.name}
-    </span>
-    <span class='cart-item-quantity'>
-    ${item.quantity}
-    </span>
-      <button class='remove-cart-item' value='${item.id}'>Remove</button>
-    </li>
-  ` // CSS handles "x" character before quantity
-  );
+  document.getElementById('cart-items').innerHTML = cartItems
+    .map(
+      item => `
+        <li class='cart-item'>
+        <span class='cart-item-name'>
+        ${item.name}
+        </span>
+        <span class='cart-item-quantity'>
+        ${item.quantity}
+        </span>
+          <button class='remove-cart-item' value='${item.id}'>Remove</button>
+        </li>
+      ` // CSS handles "x" character before quantity
+    )
+    .join('');
 
   document.querySelectorAll('.remove-cart-item').forEach(button =>
     button.addEventListener('click', event => {
