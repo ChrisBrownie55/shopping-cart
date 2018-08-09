@@ -18,14 +18,21 @@
   <main>
     <section id='products' class='section products'></section>
     <section id='cart' class='section cart empty open'>
-      <input type='checkbox' id='toggle-cart' checked />
+      <input type='checkbox' class='toggle-cart' id='toggle-cart' checked />
+      <label for='toggle-cart' class='toggle-cart-label'>
+        <span>Cart</span>
+        <svg class='toggle-cart-icon' aria-hidden="true" data-prefix="fas" data-icon="caret-down" role="img" xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 150 320 300">
+          <path fill="currentColor" d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"></path>
+        </svg>
+      </label>
       <article class='sub-section cart-items'>
         <ul id="cart-items"></ul>
       </article>
       <article class='sub-section cart-totals'>
-        <h3>Subtotal:
+        <h4>Subtotal:
           <span id="subtotal">0.00</span>
-        </h3>
+        </h4>
         <h4>Tax:
           <span id='tax'>0.00</span>
         </h4>
@@ -36,6 +43,9 @@
       <button id='purchase'>Purchase</button>
     </section>
   </main>
+  <dialog id='purchase-successful'>
+    <h1>Purchase Successful</h1>
+  </dialog>
   <footer>
     <h4>
       Crafted with

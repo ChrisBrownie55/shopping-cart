@@ -50,7 +50,7 @@ class ShoeStoreService {
   }
 
   addToCart(itemID) {
-    store.addToCart(itemID);
+    return store.addToCart(itemID);
   }
 
   removeFromCart(itemID) {

@@ -8,8 +8,13 @@ function drawProducts(products) {
       product => `
     <article class='product ${
       product.quantity <= 0 ? 'out-of-stock' : ''
-    }' value='${product.id}'>
-      <img class='product-image' src='${product.img}' alt='product image' />
+    }' id='${product.id}'>
+      <div class='product-image-wrapper'>
+        <img class='product-image' src='${product.img}' alt='product image' />
+        <button class='product-button' value='${
+          product.id
+        }'>Add to cart</button>
+      </div>
       <span class='product-info'>
         <h3 class='product-name'>${product.name}</h3>
         <h3 class='product-price'>$${product.price}</h3>
@@ -18,10 +23,14 @@ function drawProducts(products) {
   `
     )
     .join('');
-  document.querySelectorAll('.product').forEach(product =>
+  document.querySelectorAll('.product-button').forEach(product =>
     product.addEventListener('click', event => {
-      shoeStoreService.addToCart(event.target.parentNode.getAttribute('value'));
+      const id = event.target.getAttribute('value');
+      const remainingQuantity = shoeStoreService.addToCart(id);
       drawCheckout();
+      if (!remainingQuantity) {
+        event.target.parentNode.parentNode.classList.add('out-of-stock');
+      }
     })
   );
 }
@@ -38,11 +47,13 @@ function drawCheckout() {
     .map(
       item => `
         <li class='cart-item'>
-          <span class='cart-item-name'>
-            ${item.name}
-          </span>
-          <span class='cart-item-quantity'>
-            ${item.quantity}
+          <span>
+            <span class='cart-item-name'>
+              ${item.name}
+            </span>
+            <span class='cart-item-quantity'>
+              ${item.quantity}
+            </span>
           </span>
           <button class='remove-cart-item' value='${item.id}'>Remove</button>
         </li>
@@ -52,8 +63,10 @@ function drawCheckout() {
 
   document.querySelectorAll('.remove-cart-item').forEach(button =>
     button.addEventListener('click', event => {
-      shoeStoreService.removeFromCart(event.target.getAttribute('value'));
+      const id = event.target.getAttribute('value');
+      shoeStoreService.removeFromCart(id);
       drawCheckout();
+      document.getElementById(id).classList.remove('out-of-stock');
     })
   );
 
@@ -69,13 +82,17 @@ class ShoeStoreController {
     document.getElementById('purchase').addEventListener('click', () => {
       shoeStoreService.purchaseItemsInCart();
       drawCheckout();
+      const successDialog = document.getElementById('purchase-successful');
+      successDialog.showModal();
+      setTimeout(() => successDialog.close(), 1500);
     });
   }
 
-  filter(value) {
+  filterProducts(value) {
+    value = value.toLocaleLowerCase();
     drawProducts(
       shoeStoreService.products.filter(
-        product => product.name.indexOf(value) + 1
+        product => product.name.toLocaleLowerCase().indexOf(value) + 1
       )
     );
   }

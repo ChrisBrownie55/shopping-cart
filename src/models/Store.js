@@ -39,7 +39,10 @@ class Store {
 
   addToCart(itemID) {
     const item = this.items.find(item => item.id === itemID);
-    if (item && item.quantity) {
+    if (!item) {
+      return -1;
+    }
+    if (item.quantity) {
       let cartItem = this.cart.find(cartItem => cartItem.id === itemID);
       if (!cartItem) {
         cartItem = {
@@ -54,6 +57,9 @@ class Store {
       if (cartItem.quantity < item.quantity) {
         ++cartItem.quantity;
       }
+      return item.quantity - cartItem.quantity;
+    } else {
+      return 0;
     }
   }
 
