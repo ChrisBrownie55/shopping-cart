@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Atoms</title>
+  <link rel="stylesheet" href="src/style/style.css">
+</head>
+
+<body>
+  <header>
+    <img class='logo' src='//cdn.shopify.com/s/files/1/2262/5459/t/22/assets/logo.png?10328311652589847117' alt='atoms logo'
+    />
+    <input type='search' id='search' placeholder='Search' class='search-input' />
+  </header>
+  <main>
+    <section id='products' class='section products'></section>
+    <section id='cart' class='section cart empty open'>
+      <input type='checkbox' id='toggle-cart' checked />
+      <article class='sub-section cart-items'>
+        <ul id="cart-items"></ul>
+      </article>
+      <article class='sub-section cart-totals'>
+        <h3>Subtotal:
+          <span id="subtotal">0.00</span>
+        </h3>
+        <h4>Tax:
+          <span id='tax'>0.00</span>
+        </h4>
+        <h4>Total:
+          <span id='total'>0.00</span>
+        </h4>
+      </article>
+      <button id='purchase'>Purchase</button>
+    </section>
+  </main>
+  <footer>
+    <h4>
+      Crafted with
+      <div class='heart'></div>
+      by Christopher Brown.
+    </h4>
+  </footer>
+  <script src='main.js' type='module'></script>
+</body>
+
+</html>
